@@ -7,15 +7,20 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+        <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
+
 
         <!-- Styles -->
     </head>
     <body>
-    <div id="app">
+    <div class="container-fluid" id="app">
+        <navigation></navigation>
         @yield('index')
     </div>
 
     <script src="{{ asset('/js/app.js') }}"></script>
+
     </body>
 </html>
