@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PageController@index');
 Route::get('/judete', 'JudeteController@index');
+Route::get('/ordonatori', 'OrdonatoriController@index');

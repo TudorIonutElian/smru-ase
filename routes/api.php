@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('getOrdonatoriTip', 'DataController@getOrdonatoriTip');
+Route::get('getRegiuni', 'DataController@getRegiuni');
+Route::get('getJudete/{regiune}', 'DataController@getJudete');
+Route::get('getLocalitati/{localitate}', 'DataController@getLocalitati');

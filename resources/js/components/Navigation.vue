@@ -93,7 +93,7 @@
                             Angajati
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a v-on:click="click" class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="#">
                                 <i class="fas fa-users-cog text-info"></i>
                                 Lista toti angajatii</a>
                             <a class="dropdown-item" href="#">
@@ -116,12 +116,16 @@
 
 <script>
     export default{
-        data : {},
-        methods: {
-            click(){
-                alert('Click');
+        data : function () {
+            return {
+                APIData: []
             }
+        },
+        mounted() {
+
+        },
+        methods: {
+
         }
     }
-
 </script>

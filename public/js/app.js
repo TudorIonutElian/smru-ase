@@ -1899,13 +1899,194 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AdaugareOrdonator.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AdaugareOrdonator.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      tipOrdonatori: [],
+      regiuni: [],
+      judete: [],
+      localitati: [],
+      ordonator: {
+        denumireOrdonator: null,
+        tipOrdonator: null,
+        regiuneOrdonator: null,
+        judetOrdonator: null,
+        localitateOrdonator: null,
+        stradaOrdonator: null,
+        numarOrdonator: null,
+        blocOrdonator: null,
+        scaraOrdonator: null,
+        etajOrdonator: null,
+        apartamentOrdonator: null,
+        codPostalOrdonator: null,
+        statusOrdonator: null,
+        dataInfiintareOrdonator: null,
+        actulNormativOrdonator: null
+      },
+      invalidErrors: {
+        denumire: false
+      }
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/getOrdonatoriTip').then(function (response) {
+      _this.tipOrdonatori = response.data;
+    });
+  },
+  methods: {
+    checkDenumire: function checkDenumire() {
+      if (this.ordonator.denumireOrdonator === '' || this.ordonator.denumireOrdonator.length < 3) {
+        this.invalidErrors.denumire = true;
+      }
+    },
+    getRegiuni: function getRegiuni() {
+      var _this2 = this;
+
+      axios.get('/api/getRegiuni').then(function (response) {
+        _this2.regiuni = response.data.data;
+      });
+    },
+    getJudete: function getJudete() {
+      var _this3 = this;
+
+      axios.get("/api/getJudete/".concat(this.ordonator.regiuneOrdonator)).then(function (response) {
+        _this3.judete = response.data.data;
+      });
+    },
+    getLocalitati: function getLocalitati() {
+      var _this4 = this;
+
+      axios.get("/api/getLocalitati/".concat(this.ordonator.judetOrdonator)).then(function (response) {
+        _this4.localitati = response.data.data;
+      });
+    },
+    submitOrdonator: function submitOrdonator() {
+      if (event) {
+        event.preventDefault();
+        console.log(this.ordonator);
+      }
+    }
+  },
+  computed: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jumbotron.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jumbotron.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 //
 //
 //
@@ -1948,98 +2129,56 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      info: [],
+      regiuneSelectata: null,
+      judeteDisponibile: [],
+      judetSelectat: null,
+      localitatiDisponibile: [],
+      localitateSelectata: null
+    };
+  },
+  mounted: function mounted() {
+    var self = this;
+    axios.get('/api/data').then(function (response) {
+      self.info = response.data;
+    });
+  },
+  methods: {
+    selectareRegiune: function selectareRegiune() {
+      var _this = this;
+
+      // Curatare judete disponibile
+      this.judetSelectat = null;
+      this.judeteDisponibile = [];
+      this.localitatiDisponibile = []; // Generare lista judete disponibile
+
+      this.info.judete.forEach(function (judet) {
+        if (judet.regiune.id === _this.regiuneSelectata.id) {
+          _this.judeteDisponibile.push({
+            'id': judet.id,
+            'denumire': judet.denumire
+          });
+        }
+      });
+    },
+    selectareJudet: function selectareJudet() {
+      var _this2 = this;
+
+      this.localitatiDisponibile = [];
+      this.info.localitati.forEach(function (localitate) {
+        if (localitate.judet === _this2.judetSelectat) {
+          _this2.localitatiDisponibile.push({
+            'id': localitate.id,
+            'denumire': localitate.denumire
+          });
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2169,12 +2308,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: {},
-  methods: {
-    click: function click() {
-      alert('Click');
-    }
-  }
+  data: function data() {
+    return {
+      APIData: []
+    };
+  },
+  mounted: function mounted() {},
+  methods: {}
 });
 
 /***/ }),
@@ -37756,6 +37896,648 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AdaugareOrdonator.vue?vue&type=template&id=3f44ac92&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AdaugareOrdonator.vue?vue&type=template&id=3f44ac92& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", { attrs: { action: "#" } }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-4" }, [
+        _c("label", { attrs: { for: "denumire" } }, [
+          _vm._v("Denumire ordonator de credite")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.ordonator.denumireOrdonator,
+              expression: "ordonator.denumireOrdonator"
+            }
+          ],
+          staticClass: "form-control",
+          class: { invalidBox: _vm.invalidErrors.denumire },
+          attrs: {
+            name: "denumire",
+            type: "text",
+            id: "denumire",
+            placeholder: "Ordonator de credite"
+          },
+          domProps: { value: _vm.ordonator.denumireOrdonator },
+          on: {
+            blur: _vm.checkDenumire,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.ordonator, "denumireOrdonator", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "tipOrdonator" } }, [
+            _vm._v("Tipul ordonatorului de credite")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.ordonator.tipOrdonator,
+                  expression: "ordonator.tipOrdonator"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "tipOrdonator" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.ordonator,
+                      "tipOrdonator",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  },
+                  _vm.getRegiuni
+                ]
+              }
+            },
+            _vm._l(_vm.tipOrdonatori, function(tipOrdonator) {
+              return _c("option", { domProps: { value: tipOrdonator.id } }, [
+                _vm._v(_vm._s(tipOrdonator.tip))
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "regiuneOrdonator" } }, [
+            _vm._v("Regiune Ordonator de credite")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.ordonator.regiuneOrdonator,
+                  expression: "ordonator.regiuneOrdonator"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "regiuneOrdonator" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.ordonator,
+                      "regiuneOrdonator",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  },
+                  _vm.getJudete
+                ]
+              }
+            },
+            [
+              !_vm.ordonator.tipOrdonator
+                ? _c("option", { attrs: { value: "null", disabled: "" } }, [
+                    _vm._v("Selecteaza regiunea")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.regiuni, function(regiune) {
+                return _c("option", { domProps: { value: regiune.id } }, [
+                  _vm._v(_vm._s(regiune.denumire))
+                ])
+              })
+            ],
+            2
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "judetOrdonator" } }, [
+            _vm._v("Judetul ordonatorului de credite")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.ordonator.judetOrdonator,
+                  expression: "ordonator.judetOrdonator"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "judetOrdonator" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.ordonator,
+                      "judetOrdonator",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  },
+                  _vm.getLocalitati
+                ]
+              }
+            },
+            [
+              !_vm.ordonator.regiuneOrdonator
+                ? _c("option", { attrs: { value: "null", disabled: "" } }, [
+                    _vm._v("Selecteaza judetul")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.judete, function(judet) {
+                return _c("option", { domProps: { value: judet.id } }, [
+                  _vm._v(_vm._s(judet.denumire))
+                ])
+              })
+            ],
+            2
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "localitateOrdonator" } }, [
+            _vm._v("Localitatea ordonatorului de credite")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.ordonator.localitateOrdonator,
+                  expression: "ordonator.localitateOrdonator"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "localitateOrdonator" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.ordonator,
+                    "localitateOrdonator",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              !_vm.ordonator.judetOrdonator
+                ? _c("option", { attrs: { value: "null", disabled: "" } }, [
+                    _vm._v("Selecteaza localitatea")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.localitati, function(localitate) {
+                return _c("option", { domProps: { value: localitate.id } }, [
+                  _vm._v(_vm._s(localitate.denumire))
+                ])
+              })
+            ],
+            2
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("label", { attrs: { for: "strada" } }, [_vm._v("Strada")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.ordonator.stradaOrdonator,
+              expression: "ordonator.stradaOrdonator"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            name: "strada",
+            type: "text",
+            id: "strada",
+            placeholder: "Strada"
+          },
+          domProps: { value: _vm.ordonator.stradaOrdonator },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.ordonator, "stradaOrdonator", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("label", { attrs: { for: "numar" } }, [_vm._v("Numar")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.ordonator.numarOrdonator,
+              expression: "ordonator.numarOrdonator"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            name: "numar",
+            type: "text",
+            id: "numar",
+            placeholder: "Numar"
+          },
+          domProps: { value: _vm.ordonator.numarOrdonator },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.ordonator, "numarOrdonator", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("label", { attrs: { for: "bloc" } }, [_vm._v("Bloc")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.ordonator.blocOrdonator,
+              expression: "ordonator.blocOrdonator"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            name: "bloc",
+            type: "text",
+            id: "bloc",
+            placeholder: "Bloc"
+          },
+          domProps: { value: _vm.ordonator.blocOrdonator },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.ordonator, "blocOrdonator", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("label", { attrs: { for: "scara" } }, [_vm._v("Scara")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.ordonator.scaraOrdonator,
+              expression: "ordonator.scaraOrdonator"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            name: "scara",
+            type: "text",
+            id: "scara",
+            placeholder: "Scara"
+          },
+          domProps: { value: _vm.ordonator.scaraOrdonator },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.ordonator, "scaraOrdonator", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("label", { attrs: { for: "etaj" } }, [_vm._v("Etaj")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.ordonator.etajOrdonator,
+              expression: "ordonator.etajOrdonator"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            name: "etaj",
+            type: "text",
+            id: "etaj",
+            placeholder: "Etaj"
+          },
+          domProps: { value: _vm.ordonator.etajOrdonator },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.ordonator, "etajOrdonator", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("label", { attrs: { for: "apartament" } }, [_vm._v("Apartament")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.ordonator.apartamentOrdonator,
+              expression: "ordonator.apartamentOrdonator"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            name: "apartament",
+            type: "text",
+            id: "apartament",
+            placeholder: "Apartament"
+          },
+          domProps: { value: _vm.ordonator.apartamentOrdonator },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(
+                _vm.ordonator,
+                "apartamentOrdonator",
+                $event.target.value
+              )
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("label", { attrs: { for: "codPostal" } }, [_vm._v("Cod Postal")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.ordonator.codPostalOrdonator,
+              expression: "ordonator.codPostalOrdonator"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            name: "codPostal",
+            type: "text",
+            id: "codPostal",
+            placeholder: "Cod Postal"
+          },
+          domProps: { value: _vm.ordonator.codPostalOrdonator },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.ordonator, "codPostalOrdonator", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "statusOrdonator" } }, [
+            _vm._v("Status Ordonator")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.ordonator.statusOrdonator,
+                  expression: "ordonator.statusOrdonator"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "statusOrdonator" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.ordonator,
+                    "statusOrdonator",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "null", disabled: "" } }, [
+                _vm._v("Selecteaza status")
+              ])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("label", { attrs: { for: "datainfiintare" } }, [
+          _vm._v("Data infiintarii")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.ordonator.dataInfiintareOrdonator,
+              expression: "ordonator.dataInfiintareOrdonator"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            name: "datainfiintare",
+            type: "text",
+            id: "datainfiintare",
+            placeholder: "Data infiintarii (dd.mm.yyyy)"
+          },
+          domProps: { value: _vm.ordonator.dataInfiintareOrdonator },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(
+                _vm.ordonator,
+                "dataInfiintareOrdonator",
+                $event.target.value
+              )
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "actinfiintare" } }, [
+            _vm._v("Actul normativ de infiintare")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.ordonator.actulNormativOrdonator,
+                  expression: "ordonator.actulNormativOrdonator"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "actinfiintare" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.ordonator,
+                    "actulNormativOrdonator",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "null", disabled: "" } }, [
+                _vm._v("Selecteaza actul de infiintare")
+              ])
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-outline-info",
+        attrs: { type: "submit" },
+        on: { click: _vm.submitOrdonator }
+      },
+      [_vm._v("Adauga Ordonator")]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jumbotron.vue?vue&type=template&id=0b8439d1&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jumbotron.vue?vue&type=template&id=0b8439d1& ***!
@@ -37771,521 +38553,178 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "jumbotron component-100 flex-center-column" },
-      [
-        _c("section", { staticClass: "pricing py-5" }, [
-          _c("div", { staticClass: "container-fluid" }, [
-            _c("div", { staticClass: "row mb-2" }, [
-              _c("div", { staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "card mb-5 mb-lg-0" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "card-title text-muted text-uppercase text-center"
-                      },
-                      [_vm._v("Ordonatori de credite")]
-                    ),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "fa-ul" }, [
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Adaugare ordonatori")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Radiere ordonatori")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Editare ordonatori")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Solicitare buget")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Aprobare buget")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Rectificare buget")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Management posturi")
-                      ])
-                    ]),
+  return _c(
+    "div",
+    {
+      staticClass: "jumbotron component-100 flex-center-column",
+      attrs: { id: "price" }
+    },
+    [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("form", { attrs: { action: "" } }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-4" }, [
+                  _c("div", { staticClass: "form-group form-group-flex" }, [
+                    _c("label", [_vm._v("Regiune")]),
                     _vm._v(" "),
                     _c(
-                      "a",
+                      "select",
                       {
-                        staticClass: "btn btn-block btn-primary text-uppercase",
-                        attrs: { href: "#" }
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.regiuneSelectata,
+                            expression: "regiuneSelectata"
+                          }
+                        ],
+                        on: {
+                          click: _vm.selectareRegiune,
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.regiuneSelectata = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
                       },
-                      [_vm._v("Ordonatori")]
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "null", disabled: "" } },
+                          [_vm._v("Selecteaza regiunea")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.info.regiuni, function(regiune) {
+                          return _c(
+                            "option",
+                            {
+                              key: regiune.id,
+                              domProps: { value: { id: regiune.id } }
+                            },
+                            [_vm._v(_vm._s(regiune.denumire))]
+                          )
+                        })
+                      ],
+                      2
                     )
                   ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "card mb-5 mb-lg-0" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "card-title text-muted text-uppercase text-center"
-                      },
-                      [_vm._v("Institutii publice")]
-                    ),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "fa-ul" }, [
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Adaugare institutie")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Radiere institutie")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Editare institutie")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Solicitare buget")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Aprobare buget")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Rectificare buget")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Management posturi")
-                      ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-4" }, [
+                  _c("div", { staticClass: "form-group form-group-flex" }, [
+                    _c("label", { attrs: { for: "judet" } }, [
+                      _vm._v("Judetul")
                     ]),
                     _vm._v(" "),
                     _c(
-                      "a",
+                      "select",
                       {
-                        staticClass: "btn btn-block btn-primary text-uppercase",
-                        attrs: { href: "#" }
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.judetSelectat,
+                            expression: "judetSelectat"
+                          }
+                        ],
+                        attrs: { name: "judet", id: "judet" },
+                        on: {
+                          click: _vm.selectareJudet,
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.judetSelectat = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
                       },
-                      [_vm._v("Institutii")]
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "null", disabled: "" } },
+                          [_vm._v("Selecteaza judetul")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.judeteDisponibile, function(judet) {
+                          return _c(
+                            "option",
+                            { domProps: { value: judet.id } },
+                            [_vm._v(_vm._s(judet.denumire))]
+                          )
+                        })
+                      ],
+                      2
                     )
                   ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "card" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "card-title text-muted text-uppercase text-center"
-                      },
-                      [_vm._v("Angajati")]
-                    ),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "fa-ul" }, [
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Adaugare angajat")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Stergere angajat")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Mutare angajat")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Incetare contract angajat")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Promovare angajat")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Detalii angajat")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Filtrare angajati")
-                      ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-4" }, [
+                  _c("div", { staticClass: "form-group form-group-flex" }, [
+                    _c("label", { attrs: { for: "localitate" } }, [
+                      _vm._v("Localitatea")
                     ]),
                     _vm._v(" "),
                     _c(
-                      "a",
+                      "select",
                       {
-                        staticClass: "btn btn-block btn-primary text-uppercase",
-                        attrs: { href: "#" }
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.localitateSelectata,
+                            expression: "localitateSelectata"
+                          }
+                        ],
+                        attrs: { name: "localitate", id: "localitate" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.localitateSelectata = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
                       },
-                      [_vm._v("Button")]
-                    )
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "card mb-5 mb-lg-0" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "card-title text-muted text-uppercase text-center"
-                      },
-                      [_vm._v("Statistici")]
-                    ),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "fa-ul text-danger" }, [
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-block btn-primary text-uppercase",
-                        attrs: { href: "#" }
-                      },
-                      [_vm._v("Ordonatori")]
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "card mb-5 mb-lg-0" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "card-title text-muted text-uppercase text-center"
-                      },
-                      [_vm._v("Bugetul de stat")]
-                    ),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "fa-ul text-danger" }, [
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-block btn-primary text-uppercase",
-                        attrs: { href: "#" }
-                      },
-                      [_vm._v("Institutii")]
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "card" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "card-title text-muted text-uppercase text-center"
-                      },
-                      [_vm._v("Plati")]
-                    ),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "fa-ul text-danger" }, [
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("span", { staticClass: "fa-li" }, [
-                          _c("i", { staticClass: "fas fa-check" })
-                        ]),
-                        _vm._v("Optiune in curs de adaugare")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-block btn-primary text-uppercase",
-                        attrs: { href: "#" }
-                      },
-                      [_vm._v("Button")]
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "null", disabled: "" } },
+                          [_vm._v("Selecteaza Localitatea")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.localitatiDisponibile, function(localitate) {
+                          return _c(
+                            "option",
+                            { domProps: { value: localitate.id } },
+                            [_vm._v(_vm._s(localitate.denumire))]
+                          )
+                        })
+                      ],
+                      2
                     )
                   ])
                 ])
@@ -38293,10 +38732,11 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ]
-    )
-  }
-]
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38318,89 +38758,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "nav",
-    { staticClass: "navbar navbar-expand-lg navbar-dark bg-dark component-7" },
-    [
-      _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-        _vm._v("SGPASP @v.1.0.0")
-      ]),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "collapse navbar-collapse", attrs: { id: "navbarNav" } },
-        [
-          _c("ul", { staticClass: "navbar-nav" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _vm._m(3),
-            _vm._v(" "),
-            _vm._m(4),
-            _vm._v(" "),
-            _vm._m(5),
-            _vm._v(" "),
-            _vm._m(6),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item" }, [
-              _c("div", { staticClass: "dropdown" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn text-white  dropdown-toggle",
-                    attrs: {
-                      type: "button",
-                      "data-toggle": "dropdown",
-                      "aria-haspopup": "true",
-                      "aria-expanded": "false"
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Angajati\n                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "dropdown-menu",
-                    attrs: { "aria-labelledby": "dropdownMenuButton" }
-                  },
-                  [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "dropdown-item",
-                        attrs: { href: "#" },
-                        on: { click: _vm.click }
-                      },
-                      [
-                        _c("i", { staticClass: "fas fa-users-cog text-info" }),
-                        _vm._v(
-                          "\n                            Lista toti angajatii"
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _vm._m(8),
-                    _vm._v(" "),
-                    _vm._m(9)
-                  ]
-                )
-              ])
-            ])
-          ])
-        ]
-      )
-    ]
-  )
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
@@ -38408,265 +38766,411 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "button",
+      "nav",
       {
-        staticClass: "navbar-toggler",
-        attrs: {
-          type: "button",
-          "data-toggle": "collapse",
-          "data-target": "#navbarNav",
-          "aria-controls": "navbarNav",
-          "aria-expanded": "false",
-          "aria-label": "Toggle navigation"
-        }
+        staticClass: "navbar navbar-expand-lg navbar-dark bg-dark component-7"
       },
-      [_c("span", { staticClass: "navbar-toggler-icon" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item active" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Acasa")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link text-primary", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-info" }),
-        _vm._v("\n                    Despre")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link text-success", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-code-branch" }),
-        _vm._v("\n                    Versiuni")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("div", { staticClass: "dropdown" }, [
+      [
+        _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+          _vm._v("SGPASP @v.1.0.0")
+        ]),
+        _vm._v(" "),
         _c(
           "button",
           {
-            staticClass: "btn text-white dropdown-toggle",
+            staticClass: "navbar-toggler",
             attrs: {
               type: "button",
-              id: "dropdownMenuButton",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
+              "data-toggle": "collapse",
+              "data-target": "#navbarNav",
+              "aria-controls": "navbarNav",
+              "aria-expanded": "false",
+              "aria-label": "Toggle navigation"
             }
           },
-          [
-            _vm._v(
-              "\n                        Nomenclator\n                    "
-            )
-          ]
+          [_c("span", { staticClass: "navbar-toggler-icon" })]
         ),
         _vm._v(" "),
         _c(
           "div",
           {
-            staticClass: "dropdown-menu",
-            attrs: { "aria-labelledby": "dropdownMenuButton" }
+            staticClass: "collapse navbar-collapse",
+            attrs: { id: "navbarNav" }
           },
           [
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-list-ol text-success" }),
-              _vm._v(
-                "\n                            Lista Ordonatori de credite\n                        "
-              )
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-university text-info" }),
-              _vm._v(
-                "\n                            Lista Institutii publice bugetare\n                        "
-              )
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-user-check text-warning" }),
-              _vm._v(
-                "\n                            Lista Angajati Sistem Public\n                        "
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dropdown-item", attrs: { href: "/judete" } },
-              [
-                _c("i", { staticClass: "fas fa-list-ol text-success" }),
-                _vm._v(
-                  "\n                            Lista judete\n                        "
+            _c("ul", { staticClass: "navbar-nav" }, [
+              _c("li", { staticClass: "nav-item active" }, [
+                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                  _vm._v("Acasa")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link text-primary",
+                    attrs: { href: "#" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-info" }),
+                    _vm._v("\n                    Despre")
+                  ]
                 )
-              ]
-            ),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-list-ol text-success" }),
-              _vm._v(
-                "\n                            Lista Localitati\n                        "
-              )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link text-success",
+                    attrs: { href: "#" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-code-branch" }),
+                    _vm._v("\n                    Versiuni")
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c("div", { staticClass: "dropdown" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn text-white dropdown-toggle",
+                      attrs: {
+                        type: "button",
+                        id: "dropdownMenuButton",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Nomenclator\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dropdown-menu",
+                      attrs: { "aria-labelledby": "dropdownMenuButton" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-list-ol text-success"
+                          }),
+                          _vm._v(
+                            "\n                            Lista Ordonatori de credite\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-university text-info"
+                          }),
+                          _vm._v(
+                            "\n                            Lista Institutii publice bugetare\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-user-check text-warning"
+                          }),
+                          _vm._v(
+                            "\n                            Lista Angajati Sistem Public\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "dropdown-item",
+                          attrs: { href: "/judete" }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-list-ol text-success"
+                          }),
+                          _vm._v(
+                            "\n                            Lista judete\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-list-ol text-success"
+                          }),
+                          _vm._v(
+                            "\n                            Lista Localitati\n                        "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c("div", { staticClass: "dropdown" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn text-white  dropdown-toggle",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Organizarea Institutiilor\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dropdown-menu",
+                      attrs: { "aria-labelledby": "dropdownMenuButton" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", { staticClass: "fas fa-th text-primary" }),
+                          _vm._v(
+                            "\n                            Stat de organizare"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-plus-square text-success"
+                          }),
+                          _vm._v(
+                            "\n                            Infiintare Ordonator de Credite"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-minus-square text-danger"
+                          }),
+                          _vm._v(
+                            "\n                            Radiere Ordonator de Credite"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-plus-square text-success"
+                          }),
+                          _vm._v(
+                            "\n                            Infiintare Institutie Publica"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-minus-square text-danger"
+                          }),
+                          _vm._v(
+                            "\n                            Radiere Institutie Publica"
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c("div", { staticClass: "dropdown" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn text-white  dropdown-toggle",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Posturi publice\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dropdown-menu",
+                      attrs: { "aria-labelledby": "dropdownMenuButton" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-plus-circle text-success"
+                          }),
+                          _vm._v(
+                            "\n                            Suplimentare posturi"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-user-slash text-danger"
+                          }),
+                          _vm._v(
+                            "\n                            Desfiintare posturi"
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c("div", { staticClass: "dropdown" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn text-white  dropdown-toggle",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Angajati\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dropdown-menu",
+                      attrs: { "aria-labelledby": "dropdownMenuButton" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-users-cog text-info"
+                          }),
+                          _vm._v(
+                            "\n                            Lista toti angajatii"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-user-check text-success"
+                          }),
+                          _vm._v(
+                            "\n                            Adauga persoana"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-people-arrows text-warning"
+                          }),
+                          _vm._v(
+                            "\n                            Mutare persoana"
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-user-times text-danger"
+                          }),
+                          _vm._v(
+                            "\n                            Sterge persoana"
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              ])
             ])
           ]
         )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("div", { staticClass: "dropdown" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn text-white  dropdown-toggle",
-            attrs: {
-              type: "button",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [
-            _vm._v(
-              "\n                        Organizarea Institutiilor\n                    "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "dropdown-menu",
-            attrs: { "aria-labelledby": "dropdownMenuButton" }
-          },
-          [
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-th text-primary" }),
-              _vm._v("\n                            Stat de organizare")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-plus-square text-success" }),
-              _vm._v(
-                "\n                            Infiintare Ordonator de Credite"
-              )
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-minus-square text-danger" }),
-              _vm._v(
-                "\n                            Radiere Ordonator de Credite"
-              )
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-plus-square text-success" }),
-              _vm._v(
-                "\n                            Infiintare Institutie Publica"
-              )
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-minus-square text-danger" }),
-              _vm._v("\n                            Radiere Institutie Publica")
-            ])
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("div", { staticClass: "dropdown" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn text-white  dropdown-toggle",
-            attrs: {
-              type: "button",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [
-            _vm._v(
-              "\n                        Posturi publice\n                    "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "dropdown-menu",
-            attrs: { "aria-labelledby": "dropdownMenuButton" }
-          },
-          [
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-plus-circle text-success" }),
-              _vm._v("\n                            Suplimentare posturi")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-user-slash text-danger" }),
-              _vm._v("\n                            Desfiintare posturi")
-            ])
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-user-check text-success" }),
-      _vm._v("\n                            Adauga persoana")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-people-arrows text-warning" }),
-      _vm._v("\n                            Mutare persoana")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-user-times text-danger" }),
-      _vm._v("\n                            Sterge persoana")
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -50864,6 +51368,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('navigation', __webpack_require__(/*! ./components/Navigation.vue */ "./resources/js/components/Navigation.vue")["default"]);
 Vue.component('jumbotron', __webpack_require__(/*! ./components/Jumbotron.vue */ "./resources/js/components/Jumbotron.vue")["default"]);
+Vue.component('adaugare-ordonator', __webpack_require__(/*! ./components/AdaugareOrdonator.vue */ "./resources/js/components/AdaugareOrdonator.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -50921,19 +51426,88 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/AdaugareOrdonator.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/AdaugareOrdonator.vue ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdaugareOrdonator_vue_vue_type_template_id_3f44ac92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdaugareOrdonator.vue?vue&type=template&id=3f44ac92& */ "./resources/js/components/AdaugareOrdonator.vue?vue&type=template&id=3f44ac92&");
+/* harmony import */ var _AdaugareOrdonator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdaugareOrdonator.vue?vue&type=script&lang=js& */ "./resources/js/components/AdaugareOrdonator.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _AdaugareOrdonator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _AdaugareOrdonator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AdaugareOrdonator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdaugareOrdonator_vue_vue_type_template_id_3f44ac92___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AdaugareOrdonator_vue_vue_type_template_id_3f44ac92___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/AdaugareOrdonator.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/AdaugareOrdonator.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/AdaugareOrdonator.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareOrdonator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AdaugareOrdonator.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AdaugareOrdonator.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareOrdonator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/AdaugareOrdonator.vue?vue&type=template&id=3f44ac92&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/AdaugareOrdonator.vue?vue&type=template&id=3f44ac92& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareOrdonator_vue_vue_type_template_id_3f44ac92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AdaugareOrdonator.vue?vue&type=template&id=3f44ac92& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AdaugareOrdonator.vue?vue&type=template&id=3f44ac92&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareOrdonator_vue_vue_type_template_id_3f44ac92___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareOrdonator_vue_vue_type_template_id_3f44ac92___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Jumbotron.vue":
 /*!***********************************************!*\
   !*** ./resources/js/components/Jumbotron.vue ***!
   \***********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jumbotron_vue_vue_type_template_id_0b8439d1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Jumbotron.vue?vue&type=template&id=0b8439d1& */ "./resources/js/components/Jumbotron.vue?vue&type=template&id=0b8439d1&");
 /* harmony import */ var _Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Jumbotron.vue?vue&type=script&lang=js& */ "./resources/js/components/Jumbotron.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50963,15 +51537,13 @@ component.options.__file = "resources/js/components/Jumbotron.vue"
 /*!************************************************************************!*\
   !*** ./resources/js/components/Jumbotron.vue?vue&type=script&lang=js& ***!
   \************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Jumbotron.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jumbotron.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Jumbotron_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -50997,15 +51569,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************!*\
   !*** ./resources/js/components/Navigation.vue ***!
   \************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Navigation_vue_vue_type_template_id_d456e682___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Navigation.vue?vue&type=template&id=d456e682& */ "./resources/js/components/Navigation.vue?vue&type=template&id=d456e682&");
 /* harmony import */ var _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Navigation.vue?vue&type=script&lang=js& */ "./resources/js/components/Navigation.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -51035,7 +51606,7 @@ component.options.__file = "resources/js/components/Navigation.vue"
 /*!*************************************************************************!*\
   !*** ./resources/js/components/Navigation.vue?vue&type=script&lang=js& ***!
   \*************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

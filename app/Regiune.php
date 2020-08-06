@@ -9,7 +9,7 @@ class Regiune extends Model
     protected $table = 'regiuni';
     public $timestamps = false;
 
-    public function getJudete(){
-        return $this->hasMany('App\Judet')      ;
+    public function afisareJudete(){
+        return $this->hasMany('App\Judet', 'regiune', 'id');
     }
 }

@@ -23,6 +23,7 @@ window.Vue = require('vue');
 
 Vue.component('navigation', require('./components/Navigation.vue').default);
 Vue.component('jumbotron', require('./components/Jumbotron.vue').default);
+Vue.component('adaugare-ordonator', require('./components/AdaugareOrdonator.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

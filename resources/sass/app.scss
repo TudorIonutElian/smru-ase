@@ -55,3 +55,13 @@
 .navbar{
     z-index: 100;
 }
+
+.invalidBox{
+    border: 1px solid red;
+}
+.division-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
